@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Aprobación de Crédito</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 { color: #667eea; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #333; font-weight: 600; }
+        input, select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        button { width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        #resultado { margin-top: 30px; padding: 20px; border-radius: 5px; text-align: center; display: none; }
+        #resultado.aprobado { background: #d4edda; border: 2px solid #28a745; color: #155724; }
+        #resultado.rechazado { background: #f8d7da; border: 2px solid #dc3545; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏒 Predictor de Crédito</h1>
+        <form id="formulario">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A1">A1 (a/b):</label>
+                    <select id="A1" name="A1" required>
+                        <option value="">Seleccione...</option>
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="A2">A2 (númerico):</label>
+                    <input type="number" id="A2" name="A2" step="0.01" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A3">A3 (númerico):</label>
+                    <input type="number" id="A3" name="A3" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="A4">A4 (u/y/l/t):</label>
+                    <select id="A4" name="A4" required>
+                        <option value="">Seleccione...</option>
+                        <option value="u">u</option>
+                        <option value="y">y</option>
+                        <option value="l">l</option>
+                        <option value="t">t</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A5">A5 (g/p/gg):</label>
+                    <select id="A5" name="A5" required>
+                        <option value="">Seleccione...</option>
+                        <option value="g">g</option>
+                        <option value="p">p</option>
+                        <option value="gg">gg</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="A6">A6:</label>
+                    <input type="text" id="A6" name="A6" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A7">A7:</label>
+                    <input type="text" id="A7" name="A7" required>
+                </div>
+                <div class="form-group">
+                    <label for="A8">A8 (númerico):</label>
+                    <input type="number" id="A8" name="A8" step="0.01" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A9">A9 (t/f):</label>
+                    <select id="A9" name="A9" required>
+                        <option value="">Seleccione...</option>
+                        <option value="t">t</option>
+                        <option value="f">f</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="A10">A10 (t/f):</label>
+                    <select id="A10" name="A10" required>
+                        <option value="">Seleccione...</option>
+                        <option value="t">t</option>
+                        <option value="f">f</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A11">A11 (númerico):</label>
+                    <input type="number" id="A11" name="A11" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="A12">A12 (t/f):</label>
+                    <select id="A12" name="A12" required>
+                        <option value="">Seleccione...</option>
+                        <option value="t">t</option>
+                        <option value="f">f</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="A13">A13 (g/p/s):</label>
+                    <select id="A13" name="A13" required>
+                        <option value="">Seleccione...</option>
+                        <option value="g">g</option>
+                        <option value="p">p</option>
+                        <option value="s">s</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="A14">A14 (númerico):</label>
+                    <input type="number" id="A14" name="A14" step="0.01" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="A15">A15 (númerico):</label>
+                <input type="number" id="A15" name="A15" step="0.01" required>
+            </div>
+            <button type="submit">🔮 Obtener Predicción</button>
+        </form>
+        <div id="resultado"></div>
+    </div>
+    <script>
+        document.getElementById('formulario').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resultado = document.getElementById('resultado');
+            const formData = new FormData(document.getElementById('formulario'));
+            try {
+                const response = await fetch('/predict', { method: 'POST', body: formData });
+                const data = await response.json();
+                if (response.ok) {
+                    const esAprobado = data.resultado.includes('APROBADO');
+                    resultado.className = esAprobado ? 'aprobado' : 'rechazado';
+                    resultado.innerHTML = `<div><strong>${data.resultado}</strong></div><div>Probabilidad: ${data.probabilidad}</div><div>Confianza: ${data.confianza}</div>`;
+                    resultado.style.display = 'block';
+                } else {
+                    resultado.innerHTML = `<div style="color:red;">Error: ${data.error}</div>`;
+                    resultado.style.display = 'block';
+                }
+            } catch (error) {
+                resultado.innerHTML = `<div style="color:red;">Error de conexión</div>`;
+                resultado.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
