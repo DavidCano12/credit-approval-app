@@ -19,153 +19,284 @@
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             padding: 40px;
-            max-width: 600px;
+            max-width: 720px;
             width: 100%;
         }
-        h1 { color: #667eea; text-align: center; }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        p.desc {
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 25px;
+        }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #333; font-weight: 600; }
-        input, select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 5px; font-size: 14px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        button { width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px; font-weight: bold; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
-        #resultado { margin-top: 30px; padding: 20px; border-radius: 5px; text-align: center; display: none; }
-        #resultado.aprobado { background: #d4edda; border: 2px solid #28a745; color: #155724; }
-        #resultado.rechazado { background: #f8d7da; border: 2px solid #dc3545; color: #721c24; }
+        label {
+            display: block;
+            margin-bottom: 4px;
+            color: #333;
+            font-weight: 600;
+        }
+        .help-text {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            margin-bottom: 4px;
+        }
+        input, select {
+            width: 100%;
+            padding: 9px 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        #resultado.aprobado {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        #resultado.rechazado {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🏒 Predictor de Crédito</h1>
         <form id="formulario">
+            <!-- Fila 1 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A1">A1 (a/b):</label>
+                    <label for="A1">Tipo de cliente (A1)</label>
+                    <span class="help-text">Categoría interna del banco.</span>
                     <select id="A1" name="A1" required>
-                        <option value="">Seleccione...</option>
-                        <option value="a">a</option>
-                        <option value="b">b</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="a">Cliente tipo A</option>
+                        <option value="b">Cliente tipo B</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="A2">A2 (númerico):</label>
+                    <label for="A2">Ingreso mensual aproximado (A2)</label>
+                    <span class="help-text">Valor numérico. Ejemplo: 2500.50</span>
                     <input type="number" id="A2" name="A2" step="0.01" required>
                 </div>
             </div>
+
+            <!-- Fila 2 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A3">A3 (númerico):</label>
-                    <input type="number" id="A3" name="A3" step="0.01" required>
+                    <label for="A3">Antigüedad laboral en años (A3)</label>
+                    <span class="help-text">Años trabajando de forma continua.</span>
+                    <input type="number" id="A3" name="A3" step="0.1" required>
                 </div>
                 <div class="form-group">
-                    <label for="A4">A4 (u/y/l/t):</label>
+                    <label for="A4">Situación de vivienda (A4)</label>
+                    <span class="help-text">Categorías internas del dataset.</span>
                     <select id="A4" name="A4" required>
-                        <option value="">Seleccione...</option>
-                        <option value="u">u</option>
-                        <option value="y">y</option>
-                        <option value="l">l</option>
-                        <option value="t">t</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="u">Vivienda propia (u)</option>
+                        <option value="y">Vivienda alquilada (y)</option>
+                        <option value="l">Con familiares (l)</option>
+                        <option value="t">Otra situación (t)</option>
                     </select>
                 </div>
             </div>
+
+            <!-- Fila 3 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A5">A5 (g/p/gg):</label>
+                    <label for="A5">Situación familiar (A5)</label>
+                    <span class="help-text">Estado civil / familia (códigos anonimizados).</span>
                     <select id="A5" name="A5" required>
-                        <option value="">Seleccione...</option>
-                        <option value="g">g</option>
-                        <option value="p">p</option>
-                        <option value="gg">gg</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="g">Categoría familiar G</option>
+                        <option value="p">Categoría familiar P</option>
+                        <option value="gg">Categoría familiar GG</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="A6">A6:</label>
-                    <input type="text" id="A6" name="A6" required>
+                    <label for="A6">Nivel educativo / profesión (A6)</label>
+                    <span class="help-text">Categoría interna; el texto indica solo un nombre amigable.</span>
+                    <select id="A6" name="A6" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="c">Categoría C</option>
+                        <option value="d">Categoría D</option>
+                        <option value="cc">Categoría CC</option>
+                        <option value="i">Categoría I</option>
+                        <option value="j">Categoría J</option>
+                        <option value="k">Categoría K</option>
+                        <option value="m">Categoría M</option>
+                        <option value="r">Categoría R</option>
+                        <option value="q">Categoría Q</option>
+                        <option value="w">Categoría W</option>
+                        <option value="x">Categoría X</option>
+                        <option value="e">Categoría E</option>
+                        <option value="aa">Categoría AA</option>
+                        <option value="ff">Categoría FF</option>
+                    </select>
                 </div>
             </div>
+
+            <!-- Fila 4 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A7">A7:</label>
-                    <input type="text" id="A7" name="A7" required>
+                    <label for="A7">Tipo de empleo (A7)</label>
+                    <span class="help-text">Categoría interna relacionada con el empleo.</span>
+                    <select id="A7" name="A7" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="v">Categoría V</option>
+                        <option value="h">Categoría H</option>
+                        <option value="bb">Categoría BB</option>
+                        <option value="j">Categoría J</option>
+                        <option value="n">Categoría N</option>
+                        <option value="z">Categoría Z</option>
+                        <option value="dd">Categoría DD</option>
+                        <option value="ff">Categoría FF</option>
+                        <option value="o">Categoría O</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label for="A8">A8 (númerico):</label>
+                    <label for="A8">Monto del crédito solicitado (A8)</label>
+                    <span class="help-text">Ejemplo: 5000.00</span>
                     <input type="number" id="A8" name="A8" step="0.01" required>
                 </div>
             </div>
+
+            <!-- Fila 5 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A9">A9 (t/f):</label>
+                    <label for="A9">¿Tiene historial de crédito previo? (A9)</label>
+                    <span class="help-text">t = sí, f = no (código interno).</span>
                     <select id="A9" name="A9" required>
-                        <option value="">Seleccione...</option>
-                        <option value="t">t</option>
-                        <option value="f">f</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="t">Sí (t)</option>
+                        <option value="f">No (f)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="A10">A10 (t/f):</label>
+                    <label for="A10">¿Tiene aval o garantía? (A10)</label>
+                    <span class="help-text">t = sí, f = no.</span>
                     <select id="A10" name="A10" required>
-                        <option value="">Seleccione...</option>
-                        <option value="t">t</option>
-                        <option value="f">f</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="t">Sí (t)</option>
+                        <option value="f">No (f)</option>
                     </select>
                 </div>
             </div>
+
+            <!-- Fila 6 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A11">A11 (númerico):</label>
+                    <label for="A11">Saldo actual aproximado (A11)</label>
+                    <span class="help-text">Cantidad numérica (puede ser negativa o positiva).</span>
                     <input type="number" id="A11" name="A11" step="0.01" required>
                 </div>
                 <div class="form-group">
-                    <label for="A12">A12 (t/f):</label>
+                    <label for="A12">¿Tiene otros créditos activos? (A12)</label>
+                    <span class="help-text">t = sí, f = no.</span>
                     <select id="A12" name="A12" required>
-                        <option value="">Seleccione...</option>
-                        <option value="t">t</option>
-                        <option value="f">f</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="t">Sí (t)</option>
+                        <option value="f">No (f)</option>
                     </select>
                 </div>
             </div>
+
+            <!-- Fila 7 -->
             <div class="form-row">
                 <div class="form-group">
-                    <label for="A13">A13 (g/p/s):</label>
+                    <label for="A13">Tipo de vivienda principal (A13)</label>
+                    <span class="help-text">Categorías anonimizadas del dataset.</span>
                     <select id="A13" name="A13" required>
-                        <option value="">Seleccione...</option>
-                        <option value="g">g</option>
-                        <option value="p">p</option>
-                        <option value="s">s</option>
+                        <option value="">Selecciona una opción</option>
+                        <option value="g">Vivienda propia (g)</option>
+                        <option value="p">Alquilada (p)</option>
+                        <option value="s">Otra (s)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="A14">A14 (númerico):</label>
+                    <label for="A14">Valor estimado de activos (A14)</label>
+                    <span class="help-text">Ejemplo: 15000.00</span>
                     <input type="number" id="A14" name="A14" step="0.01" required>
                 </div>
             </div>
+
+            <!-- A15 -->
             <div class="form-group">
-                <label for="A15">A15 (númerico):</label>
-                <input type="number" id="A15" name="A15" step="0.01" required>
+                <label for="A15">Número de créditos anteriores (A15)</label>
+                <span class="help-text">Cantidad de créditos que ha tenido antes.</span>
+                <input type="number" id="A15" name="A15" step="1" required>
             </div>
+
             <button type="submit">🔮 Obtener Predicción</button>
         </form>
+
         <div id="resultado"></div>
     </div>
+
     <script>
         document.getElementById('formulario').addEventListener('submit', async (e) => {
             e.preventDefault();
             const resultado = document.getElementById('resultado');
             const formData = new FormData(document.getElementById('formulario'));
+
             try {
-                const response = await fetch('/predict', { method: 'POST', body: formData });
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
                 const data = await response.json();
+
                 if (response.ok) {
                     const esAprobado = data.resultado.includes('APROBADO');
                     resultado.className = esAprobado ? 'aprobado' : 'rechazado';
-                    resultado.innerHTML = `<div><strong>${data.resultado}</strong></div><div>Probabilidad: ${data.probabilidad}</div><div>Confianza: ${data.confianza}</div>`;
+                    resultado.innerHTML = `
+                        <div><strong>${data.resultado}</strong></div>
+                        <div>Probabilidad: ${data.probabilidad}</div>
+                        <div>Confianza: ${data.confianza}</div>
+                    `;
                     resultado.style.display = 'block';
                 } else {
+                    resultado.className = '';
                     resultado.innerHTML = `<div style="color:red;">Error: ${data.error}</div>`;
                     resultado.style.display = 'block';
                 }
             } catch (error) {
+                resultado.className = '';
                 resultado.innerHTML = `<div style="color:red;">Error de conexión</div>`;
                 resultado.style.display = 'block';
             }
